@@ -1,1 +1,5 @@
+Générer une graphe/image représentant une carte du monde avec les pays (Possible d'utiliser FusionCharts pour ceci)
 
+Création d'une structure de BDD pour stocker chaque pays et son "score" (et éventuellement les données analysés et stockés à partir du script Python)
+
+Quand le page web est ouvert, afficher la carte et colorer chaque pays en fonction de son score
