@@ -58,9 +58,12 @@ for i in range (len(df["Location"])):
 	if "*" in df["Location"].iloc[i]:
 		remplacement=df["Location"].iloc[i]
 		df.replace(remplacement,remplacement[:-2], inplace=True)
-print(df)
-y=df.to_json()
-print(y)
+#print(df)
+homicides_json=df.to_json()
+catastrophes_json=pourcent_catastrophes_monde(url_cata).to_json()
 
-with open('data.json', 'w') as data:
-	json.dump(y,data)
+with open('data_homicide.json', 'w') as data:
+	json.dump(homicides_json,data)
+
+with open('data_catastrophes.json', 'w') as data:
+	json.dump(catastrophes_json,data)
