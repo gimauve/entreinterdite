@@ -2,6 +2,8 @@ import wikipediaapi
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup
+import json
+import numpy as np
 
 
 def check_droit(url):
@@ -48,5 +50,17 @@ def pourcent_catastrophes_monde(url):
 		return df
 url_homicide="https://en.wikipedia.org/wiki/List_of_countries_by_intentional_homicide_rate"
 url_cata="https://en.wikipedia.org/wiki/List_of_countries_by_natural_disaster_risk"
+df=taux_homicide_monde(url_homicide)
 print(taux_homicide_monde(url_homicide))
-print(pourcent_catastrophes_monde(url_cata))
+#print(pourcent_catastrophes_monde(url_cata))
+#print(df["Location"])
+for i in range (len(df["Location"])):
+	if "*" in df["Location"].iloc[i]:
+		remplacement=df["Location"].iloc[i]
+		df.replace(remplacement,remplacement[:-2], inplace=True)
+print(df)
+y=df.to_json()
+print(y)
+
+with open('data.json', 'w') as data:
+	json.dump(y,data)
