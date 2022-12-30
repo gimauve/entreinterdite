@@ -1,3 +1,0 @@
-<?
-require("Model/map.php");
-?>
