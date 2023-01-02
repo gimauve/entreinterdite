@@ -49,23 +49,54 @@ def homicide_rate_world(res):
 
 	return greatTable.to_json()
 
+def homicide_rate_us(res):
+
+	allTablePanda = getPandaTablesFromResponse(res)
+	
+	greatTable = getGreatTableWithIndex(["2020","Historical Violent Crime Rates","State or Territory"],allTablePanda)[0]
+
+	greatTable.drop(["Historical Violent Crime Rates"], inplace=True, axis=1)
+	greatTable.drop(0,inplace=True,axis=0)
+	
+	return greatTable.to_json()
+
 
 def percentage_naturalDisasters_world(res):
 
 	allTablePanda = getPandaTablesFromResponse(res)
 	greatTable = allTablePanda[0]
 	greatTable.drop(["2013[4]","2012[5]","2011[6]"], inplace=True, axis=1)
+
 	return greatTable.to_json()
+
+def naturalDisasters_us(res):
+
+	allTablePanda = getPandaTablesFromResponse(res)
+	greatTable = getGreatTableWithIndex(["Year","Disaster","Death toll","Location"],allTablePanda)[0]
+
+	greatTable.drop(["Notes","Main article","Damage cost US$","Year"], inplace=True, axis=1)
+	return greatTable.to_json()
+
 
 
 res = check_right("https://en.wikipedia.org/wiki/List_of_countries_by_intentional_homicide_rate")
 res2 = check_right("https://en.wikipedia.org/wiki/List_of_countries_by_natural_disaster_risk")
+res3 = check_right("https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_violent_crime_rate")
+res4 = check_right("https://en.wikipedia.org/wiki/List_of_natural_disasters_in_the_United_States")
 
 hrw = homicide_rate_world(res)
 pndw = percentage_naturalDisasters_world(res2)
+hrUS = homicide_rate_us(res3)
+pndUS = naturalDisasters_us(res4)
 
 with open('data_homicide.json', 'w') as data:
 	json.dump(hrw,data)
 
 with open('data_catastrophes.json', 'w') as data:
 	json.dump(pndw,data)
+
+with open('data_homicides_us.json', 'w') as data:
+	json.dump(hrUS,data)
+
+with open('data_catastrophes_us.json', 'w') as data:
+	json.dump(pndUS,data)
