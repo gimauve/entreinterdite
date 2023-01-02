@@ -12,7 +12,13 @@ class Router
     
     public function main()
     {
-        if((isset($_GET['map'])))
+        if(isset($_GET['countryTag']))
+        {
+            $this->controllerManager->view->makeCountryPage();
+        }
+            
+        
+        else if((isset($_GET['map'])))
         {
             
             $this->controllerManager->view->showMap();

@@ -26,13 +26,36 @@
     }
     
     $continentData = "data/" . $continentDataFile . ".js";
+    
+    
+    $countryForm = ""
 ?>
 
+
+    <form id="countryForm" actoion="country.php" method="get" target="_blank">
+    <label for="countryTag" >Country tag:</label>
+    <input id="countryTag" id="countryTag" name="countryTag" type="text">
+    
+    <label for="countryName" >Country name:</label>
+    <input id="countryName" id="countryName" name="countryName" type="text">
+    
+    <label for="countryContinent" >Country continent:</label>
+    <input id="countryContinent" id="countryContinent" name="countryContinent" type="text">
+    
+    
+    
+    <input type="submit">
+    </form>
+
+
     <div id="map" style="width: 1000px; height: 800px"></div>
+    <script> document.getElementById("countryForm").style.display = "none"; </script>
     <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
     <script type="text/javascript" src=<? echo $continentData ?>></script>
     <script>
+    
+        
     
         var map = L.map('map').setView([0, -50], 3);
         
@@ -139,6 +162,21 @@
                 .setLatLng(e.latlng)
                 .setContent(e.target.feature.properties.admin)
                 .openOn(map);
+                
+            var counTag = document.getElementById("countryForm")
+            
+            counTag.elements["countryTag"].value = e.target.feature.properties.adm0_a3;
+            counTag.elements["countryName"].value = e.target.feature.properties.admin;
+            counTag.elements["countryContinent"].value = e.target.feature.properties.continent;
+            
+            console.log(counTag);
+            
+            console.log(e.target.feature.properties);
+            
+            //country name, country tag, continent.
+            
+            document.getElementById("countryForm").submit();
+                
         }
         
         map.on('click',onMapClick);

@@ -58,6 +58,13 @@ class View
         
         require_once("app/Model/map.php");
     }
+    
+    public function makeCountryPage()
+    {
+        
+        require_once("app/Model/country.php");
+        
+    }
 }
 
 ?>
